@@ -4,6 +4,7 @@ import ProgressBar from "./ProgressBar";
 import Navbar from "./Navbar";
 import AddTaskForm from "./AddTaskForm";
 import Profile from "./Profile";
+import Statistics from "./Statistics";
 import "./App.css";
 
 function App() {
@@ -169,6 +170,7 @@ function App() {
       )}
 
       {activePage === "profile" && <Profile user={user} tasks={tasks} />}
+      {activePage === "statistics" && <Statistics />}
     </>
   );
 }
