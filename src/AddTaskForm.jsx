@@ -3,21 +3,33 @@ import "./AddTaskForm.css";
 
 function AddTaskForm({ onAddTask }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState("Nepradėta");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const newTask = {
-      id: Date.now(),
       title,
       status,
       deadline,
     };
 
-    onAddTask(newTask);
+    setIsSaving(true);
+    setError("");
+
+    try {
+      await onAddTask(newTask);
+    } catch (saveError) {
+      setError(saveError.message || "Nepavyko išsaugoti užduoties. Patikrinkite API ir bandykite dar kartą.");
+      setIsSaving(false);
+      return;
+    }
+
+    setIsSaving(false);
 
     setTitle("");
     setDeadline("");
@@ -111,10 +123,11 @@ function AddTaskForm({ onAddTask }) {
               Atšaukti
             </button>
 
-            <button type="submit" className="add-task__submit">
+            <button type="submit" className="add-task__submit" disabled={isSaving}>
               Pridėti užduotį
             </button>
           </div>
+          {error && <p className="add-task__error" role="alert">{error}</p>}
         </form>
       </div>
     </div>

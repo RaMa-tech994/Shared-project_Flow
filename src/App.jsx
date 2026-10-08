@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskList from "./TaskList";
 import ProgressBar from "./ProgressBar";
 import Navbar from "./Navbar";
 import AddTaskForm from "./AddTaskForm";
 import Profile from "./Profile";
 import Statistics from "./Statistics";
+import { createTask, getTasks } from "./taskApi";
 import "./App.css";
 
 function App() {
+  const [isLoadingTasks, setIsLoadingTasks] = useState(true);
+  const [taskError, setTaskError] = useState("");
   const user = {
     name: "Jonas Jonaitis",
     email: "jonas@flowly.lt",
@@ -19,20 +22,26 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState("");
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Sukurti prisijungimo formą",
-      status: "Atlikta",
-      deadline: "2026-10-01",
-    },
-    {
-      id: 2,
-      title: "Sukurti užduočių sąrašą",
-      status: "Vykdoma",
-      deadline: "2026-10-05",
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    let isActive = true;
+
+    getTasks()
+      .then((loadedTasks) => {
+        if (isActive) setTasks(loadedTasks);
+      })
+      .catch(() => {
+        if (isActive) setTaskError("Nepavyko įkelti užduočių. Patikrinkite API ir bandykite dar kartą.");
+      })
+      .finally(() => {
+        if (isActive) setIsLoadingTasks(false);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -46,8 +55,10 @@ function App() {
     setLoginError("Neteisingas vartotojo vardas arba slaptažodis.");
   }
 
-  function handleAddTask(newTask) {
-    setTasks((currentTasks) => [...currentTasks, newTask]);
+  async function handleAddTask(newTask) {
+    setTaskError("");
+    const savedTask = await createTask(newTask);
+    setTasks((currentTasks) => [...currentTasks, savedTask]);
   }
 
   function handleTaskStatusChange(taskId, status) {
@@ -155,10 +166,16 @@ function App() {
 
                 <TaskList
                   tasks={tasks}
-                  loading={false}
+                  loading={isLoadingTasks}
                   onStatusChange={handleTaskStatusChange}
                   onDeadlineChange={handleTaskDeadlineChange}
                 />
+
+                {taskError && (
+                  <p className="task-error" role="alert">
+                    {taskError}
+                  </p>
+                )}
 
                 <AddTaskForm onAddTask={handleAddTask} />
 
