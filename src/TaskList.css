@@ -101,6 +101,17 @@
   color: var(--text);
 }
 
+.task-assignee {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--text-h);
+  overflow-wrap: anywhere;
+}
+
+.task-assignee span {
+  color: var(--text);
+}
+
 .task-deadline input {
   min-width: 0;
   padding: 5px 8px;

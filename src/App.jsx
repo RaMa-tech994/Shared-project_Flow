@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import AddTaskForm from "./AddTaskForm";
 import Profile from "./Profile";
 import Statistics from "./Statistics";
+import Weather from "./Weather";
 import { createTask, getTasks } from "./taskApi";
 import "./App.css";
 
@@ -103,6 +104,8 @@ function App() {
           )}
 
           <main className="login-page">
+            <Weather />
+
             {!isLoggedIn && (
               <div className="login-card">
                 <>

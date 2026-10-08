@@ -49,6 +49,12 @@ function TaskList({ tasks = [], loading = false, onStatusChange, onDeadlineChang
               </label>
             </div>
 
+            {task.assignee && (
+              <p className="task-assignee">
+                <span>Atsakingas:</span> {task.assignee}
+              </p>
+            )}
+
             <label className="task-deadline">
               <span>Terminas:</span>
               <input

@@ -6,6 +6,7 @@ function AddTaskForm({ onAddTask }) {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
+  const [assignee, setAssignee] = useState("");
   const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState("Nepradėta");
 
@@ -14,6 +15,7 @@ function AddTaskForm({ onAddTask }) {
 
     const newTask = {
       title,
+      assignee,
       status,
       deadline,
     };
@@ -32,6 +34,7 @@ function AddTaskForm({ onAddTask }) {
     setIsSaving(false);
 
     setTitle("");
+    setAssignee("");
     setDeadline("");
     setStatus("Nepradėta");
     setIsOpen(false);
@@ -39,6 +42,7 @@ function AddTaskForm({ onAddTask }) {
 
   function handleCancel() {
     setTitle("");
+    setAssignee("");
     setDeadline("");
     setStatus("Nepradėta");
     setIsOpen(false);
@@ -86,6 +90,18 @@ function AddTaskForm({ onAddTask }) {
               placeholder="Pvz. Sukurti profilio puslapį"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
+              required
+            />
+          </label>
+
+          <label className="add-task__field">
+            <span>Atsakingas</span>
+
+            <input
+              type="text"
+              placeholder="Įveskite atsakingo asmens vardą"
+              value={assignee}
+              onChange={(event) => setAssignee(event.target.value)}
               required
             />
           </label>

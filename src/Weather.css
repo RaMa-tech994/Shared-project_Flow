@@ -1,0 +1,131 @@
+.weather-card {
+  width: min(100%, 400px);
+  align-self: flex-start;
+  margin-right: auto;
+  padding: 28px;
+  border: 1px solid #292936;
+  border-radius: 16px;
+  background: #14141c;
+  box-sizing: border-box;
+  color: #f4f2f7;
+}
+
+.weather-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.weather-card__eyebrow {
+  margin: 0 0 4px;
+  color: #a78bfa;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.weather-card__header h2 {
+  margin: 0;
+  color: #f4f2f7;
+  font-size: 22px;
+}
+
+.weather-card__location {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid #30303d;
+  border-radius: 10px;
+  background: #1b1b24;
+  color: #c4a2ff;
+  font-size: 21px;
+}
+
+.weather-card__date {
+  margin: 18px 0 8px;
+  color: #9d9ca8;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.weather-card__current {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.weather-card__icon {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.weather-card__condition {
+  margin: 0 0 2px;
+  color: #c7c5d0;
+  font-size: 14px;
+}
+
+.weather-card__temperature {
+  margin: 0;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.weather-card__range {
+  margin: 12px 0 20px;
+  color: #9d9ca8;
+  font-size: 14px;
+}
+
+.weather-card__details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid #292936;
+}
+
+.weather-card__details p {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  margin: 0;
+}
+
+.weather-card__details span {
+  color: #8d8c9a;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.weather-card__details strong {
+  color: #f4f2f7;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.weather-card__message {
+  margin: 24px 0 4px;
+  color: #9d9ca8;
+  font-size: 14px;
+}
+
+@media (max-width: 420px) {
+  .weather-card {
+    padding: 22px;
+  }
+
+  .weather-card__details {
+    gap: 8px;
+  }
+
+  .weather-card__details span {
+    font-size: 11px;
+  }
+}

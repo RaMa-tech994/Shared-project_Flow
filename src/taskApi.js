@@ -7,6 +7,7 @@ function normalizeTask(task) {
   return {
     id: record.id,
     title: record.Title ?? record.title,
+    assignee: record.Atsakingas ?? record.assignee ?? "",
     status: record.Status ?? record.status,
     deadline: record.Deadline ?? record.deadline,
   };
@@ -50,7 +51,12 @@ export async function createTask(task) {
   const response = await fetch(TASKS_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ Title: task.title, Status: task.status, Deadline: task.deadline }),
+    body: JSON.stringify({
+      Title: task.title,
+      Atsakingas: task.assignee,
+      Status: task.status,
+      Deadline: task.deadline,
+    }),
   });
 
   const data = await readResponse(response);
